@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>柴寮</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+      tr,th,td {
+        margin: 0;
+        padding: 5px 0;
+      }
+      td,th {
+        min-width: 75px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>阴阳师の柴寮</h1>
+    <p>这是小柴做的「阴阳师」资料站</p>
+    <form action="devils.html" id="devil-name" method="get" style="margin-top:15px;">
+      <label for="name">妖怪名:</label>
+      <input type="text" name="name" id="name"></input>
+      <button type="submit">查询</button>
+    </form>
+    <table id="devils" style="margin:15px 0 0 0;padding:0;" border="1">
+      <tr>
+        <th>妖怪名</th>
+        <th>出现副本</th>
+        <th>数量</th>
+        <th>备注</th>
+      </tr>
+    </table>
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/init.js"></script>
+    <script>
+      function queryDevils (name) {
+        var params = {};
+        if (name) {
+          params.name = name;
+        }
+        AV.Cloud.run('devils', params).then(function (result) {
+          displayDevils(result);
+        }, function (err) {
+          console.log(err);
+        });
+      }
+
+      function displayDevils (devils) {
+        var rows = $('table#devils tr');
+        for (var i = 1; i < rows.length; i++) {
+          rows[i].remove();
+        }
+        for (var i = 0; i < devils.length; i++) {
+          var devil = devils[i];
+          $('table#devils tr:last').after('<tr><td>'+devil.name+'</td><td>'+devil.fuben+'</td><td>'+devil.num+'</td><td>'+devil.desc+'</td></tr>');
+        }
+      }
+
+      queryDevils();
+      $('form#devil-name').on('submit', function (e) {
+        queryDevils($('#name').val());
+        e.preventDefault();
+        return false;
+      });
+    </script>
+  </body>
+</html>
