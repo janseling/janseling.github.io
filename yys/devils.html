@@ -53,7 +53,7 @@
         }
         for (var i = 0; i < devils.length; i++) {
           var devil = devils[i];
-          $('table#devils tr:last').after('<tr><td>'+devil.name+'</td><td>'+devil.fuben+'</td><td>'+devil.num+'</td><td>'+devil.desc+'</td></tr>');
+          $('table#devils tr:last').after('<tr><td>'+devil.name+'</td><td>'+devil.fuben+'</td><td>'+(devil.num ? devil.num :'-')+'</td><td>'+devil.desc+'</td></tr>');
         }
       }
 
