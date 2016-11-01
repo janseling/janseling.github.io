@@ -1,37 +1,42 @@
 <!DOCTYPE HTML>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>柴寮</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-      tr,th,td {
-        margin: 0;
-        padding: 5px 0;
-      }
-      td,th {
-        min-width: 75px;
-        text-align: center;
-      }
-    </style>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
   </head>
   <body>
-    <h1><a href="/yys">阴阳师の柴寮</a></h1>
-    <p>这是小柴做的「阴阳师」资料站</p>
-    <form action="devils.html" id="devil-name" method="get" style="margin-top:15px;">
-      <label for="name">妖怪名:</label>
-      <input type="text" name="name" id="name"></input>
-      <button type="submit">查询</button>
-    </form>
-    <table id="devils" style="margin:15px 0 0 0;padding:0;" border="1">
-      <tr>
-        <th>妖怪名</th>
-        <th>出现副本</th>
-        <th>数量</th>
-        <th>备注</th>
-      </tr>
-    </table>
-    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <div class="container">
+      <h1><a href="/yys">阴阳师の柴寮</a></h1>
+      <p>这是小柴做的「阴阳师」资料站</p>
+      <form action="devils.html" id="devil-name" method="get" style="margin-top:15px;">
+        <label for="name">妖怪名:</label>
+        <input type="text" name="name" id="name"></input>
+        <button type="submit">查询</button>
+      </form>
+    </div>
+    <div class="container">
+      <table id="devils" style="margin:15px 0 0 0;padding:0;" border="1">
+        <tr>
+          <th>妖怪名</th>
+          <th>出现副本</th>
+          <th>数量</th>
+          <th>备注</th>
+        </tr>
+      </table>
+    </div>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="/js/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <!-- LeanCloud SDK -->
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <!-- 初始化LeanCloud -->
     <script src="/js/init.js"></script>
     <script>
       function queryDevils (name) {
