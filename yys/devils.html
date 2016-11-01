@@ -14,14 +14,15 @@
     <div class="container">
       <h1><a href="/yys">阴阳师の柴寮</a></h1>
       <p>这是小柴做的「阴阳师」资料站</p>
-      <form action="devils.html" id="devil-name" method="get" style="margin-top:15px;">
-        <label for="name">妖怪名:</label>
-        <input type="text" name="name" id="name"></input>
-        <button type="submit">查询</button>
+      <form action="devils.html" id="devil-name" method="get" class="form-inline">
+        <div class="form-group">
+          <input type="text" name="name" id="name" class="form-control" placeholder="妖怪名"></input>
+          <button type="submit" class="btn btn-primary">查询</button>
+        </div>
       </form>
     </div>
-    <div class="container">
-      <table id="devils" style="margin:15px 0 0 0;padding:0;" border="1">
+    <div class="container" style="margin-top:15px;">
+      <table id="devils" class="table table-striped">
         <tr>
           <th>妖怪名</th>
           <th>出现副本</th>
