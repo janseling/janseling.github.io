@@ -1,9 +1,9 @@
 $(function () {
-    $('#header').load('../header.html', function () {
+    $('#header').load('/blog//header.html', function () {
         console.log(arguments);
     });
 
-    $('#footer').load('../footer.html', function () {
+    $('#footer').load('/blog/footer.html', function () {
         console.log(arguments);
     });
 });
