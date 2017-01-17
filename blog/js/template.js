@@ -1,9 +1,7 @@
 $(function () {
-    $('#header').load('/blog//header.html', function () {
-        console.log(arguments);
-    });
+    MLoader.load($('#header'), '/blog/header.html', false);
+    MLoader.load($('#footer'), '/blog/footer.html', false);
 
-    $('#footer').load('/blog/footer.html', function () {
-        console.log(arguments);
-    });
+
+    MLoader.load($('.container'), '/blog/header.html', true, 5000);
 });
