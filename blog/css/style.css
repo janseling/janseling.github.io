@@ -1,7 +1,11 @@
-#header, #footer {
-  text-align:center;
+html {
+  background-image: url('../img/bg.jpg');
+  background-repeat: repeat;
 }
-.container {
-  min-height: 375px;
+body {
+  background-color:rgba(0, 0, 0, 0);
+  font-family: 'Lucida Console', Monaco, monospace;
 }
+#header, #footer { text-align:center; }
+.container { min-height: 375px; }
 
