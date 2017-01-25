@@ -1,4 +1,7 @@
 #header, #footer {
   text-align:center;
 }
+.container {
+  min-height: 375px;
+}
 

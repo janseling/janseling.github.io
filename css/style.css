@@ -1,7 +1,42 @@
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+/* FireFox: */
+@-o-keyframes fadeIn {
+    0% {opacity: 0;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+/* Opera: */
+@-moz-keyframes fadeIn {
+    0% {opacity: 0;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+/* Chrome & Safari: */
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+    animation-duration: 0.5s;
+    animation-name: fadeIn;
+    /* FireFox: */
+    -o-animation-duration: 0.5s;
+    -o-animation-name: fadeIn;
+    /* Opera: */
+    -moz-animation-duration: 0.5s;
+    -moz-animation-name: fadeIn;
+    /* Chrome & Safari: */
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-name: fadeIn;
 }
 a {
-  color: #00b7ff;
+    color: #00b7ff;
 }

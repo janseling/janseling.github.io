@@ -12,6 +12,96 @@
     margin: -12px 2px 0 2px;
 }
 
+@keyframes loadingL {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@keyframes loadingO {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@keyframes loadingA {
+    0%,25%,100% {top:4px;}
+    12% {top:-16px;}
+}
+@keyframes loadingD {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@keyframes loadingI {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@keyframes loadingN {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@keyframes loadingG {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+
+/* FireFox: */
+@-o-keyframes loadingL {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-o-keyframes loadingO {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-o-keyframes loadingA {
+    0%,25%,100% {top:4px;}
+    12% {top:-16px;}
+}
+@-o-keyframes loadingD {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-o-keyframes loadingI {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-o-keyframes loadingN {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-o-keyframes loadingG {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+
+/* Opera: */
+@-moz-keyframes loadingL {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-moz-keyframes loadingO {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-moz-keyframes loadingA {
+    0%,25%,100% {top:4px;}
+    12% {top:-16px;}
+}
+@-moz-keyframes loadingD {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-moz-keyframes loadingI {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-moz-keyframes loadingN {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+@-moz-keyframes loadingG {
+    0%,25%,100% {top:11px;}
+    12% {top:-9px;}
+}
+
+/* Chrome & Safari: */
 @-webkit-keyframes loadingL {
     0%,25%,100% {top:11px;}
     12% {top:-9px;}
@@ -42,26 +132,48 @@
 }
 
 .L {
+    animation: loadingL 2.5s ease-out infinite;
+    -o-animation: loadingL 2.5s ease-out infinite;
+    -moz-animation: loadingL 2.5s ease-out infinite;
     -webkit-animation: loadingL 2.5s ease-out infinite;
 }
 .O {
+    animation: loadingO 2.5s ease-out 0.2s infinite;
+    -o-animation: loadingO 2.5s ease-out 0.2s infinite;
+    -moz-animation: loadingO 2.5s ease-out 0.2s infinite;
     -webkit-animation: loadingO 2.5s ease-out 0.2s infinite;
 }
 .A {
+    animation: loadingA 2.5s ease-out 0.4s infinite;
+    -o-animation: loadingA 2.5s ease-out 0.4s infinite;
+    -moz-animation: loadingA 2.5s ease-out 0.4s infinite;
     -webkit-animation: loadingA 2.5s ease-out 0.4s infinite;
 }
 .D {
+    animation: loadingD 2.5s ease-out 0.6s infinite;
+    -o-animation: loadingD 2.5s ease-out 0.6s infinite;
+    -moz-animation: loadingD 2.5s ease-out 0.6s infinite;
     -webkit-animation: loadingD 2.5s ease-out 0.6s infinite;
 }
 .I {
+    animation: loadingI 2.5s ease-out 0.8s infinite;
+    -o-animation: loadingI 2.5s ease-out 0.8s infinite;
+    -moz-animation: loadingI 2.5s ease-out 0.8s infinite;
     -webkit-animation: loadingI 2.5s ease-out 0.8s infinite;
 }
 .N {
+    animation: loadingN 2.5s ease-out 1s infinite;
+    -o-animation: loadingN 2.5s ease-out 1s infinite;
+    -moz-animation: loadingN 2.5s ease-out 1s infinite;
     -webkit-animation: loadingN 2.5s ease-out 1s infinite;
 }
 .G {
+    animation: loadingG 2.5s ease-out 1.2s infinite;
+    -o-animation: loadingG 2.5s ease-out 1.2s infinite;
+    -moz-animation: loadingG 2.5s ease-out 1.2s infinite;
     -webkit-animation: loadingG 2.5s ease-out 1.2s infinite;
 }
+
 
 /*字母L*/
 .L {

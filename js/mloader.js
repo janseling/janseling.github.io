@@ -13,19 +13,37 @@ MLoader.showLoading = function (container) {
     container.html("<div class='loading'><span class='L'></span><span class='O'></span><span class='A'></span><span class='D'></span><span class='I'></span><span class='N'></span><span class='G'></span></div>");
 };
 
+var test = [1,2];
+
 // 向容器加载内容
-MLoader.load = function (container, path, displayLoading, timeout) {
-    // 默认显示loading图标
-    if (displayLoading == undefined) {
-        displayLoading = true;
+MLoader.load = function () {
+    var container = arguments[0];
+    var path = arguments[1];
+
+    var timeout = 0;
+    var options = {};
+    var displayLoading = true;
+    if (arguments.length > 2) {
+        for (var i = 2; i < arguments.length; i++) {
+            switch (typeof arguments[i]) {
+                case 'boolean':
+                    displayLoading = arguments[i];
+                    break;
+                case 'object':
+                    options = extend(options, arguments[i]);
+                    break;
+                case 'number':
+                    timeout = arguments[i];
+                    break;
+            }
+        }
     }
     if (displayLoading) {
         this.showLoading(container);
     }
-
     setTimeout(function () {
         container.load(path, function (html, status, resp) {
             container.removeClass('loading-wrap');
         });
-    }, timeout || 0);
+    }, timeout);
 };
