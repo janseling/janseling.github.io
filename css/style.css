@@ -1,11 +1,10 @@
 @keyframes fadeIn {
     0% {opacity: 0;}
-    50% {opacity: 0;}
-    100% {opacity: 1;}
+    50% {opacity: 0;} 100% {opacity: 1;}
 }
 /* FireFox: */
 @-o-keyframes fadeIn {
-    0% {opacity: 0;}
+a   0% {opacity: 0;}
     50% {opacity: 0;} 100% {opacity: 1;} }
 /* Opera: */
 @-moz-keyframes fadeIn {
@@ -40,26 +39,39 @@ body {
     -webkit-animation-duration: 0.5s;
     -webkit-animation-name: fadeIn;
 }
+
+/** header 样式开始 **/
+#header {
+    text-align: center;
+    padding: 70px 15px 20px 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#header a {
+    color: #353535;
+    text-decoration: none;
+}
+#header .avatar {
+  background-color: white;
+  display: inline-block;
+  margin-top: -3px;
+  width: 26px;
+  height: 26px;
+}
+/** header 样式结束 **/
+
+/** footer 样式开始 **/
+#footer { text-align:center; }
+/** footer 样式结束 **/
+
+/** 导航栏 样式开始 **/
 .navbar {
   background: rgba(253, 253, 253, 0.65);
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
 }
-#header {
-    text-align: center;
-    padding-top: 50px;
-}
-#header .avatar {
-  margin-top: 20px;
-  background-color:white;
-  width:100px;
-  height:100px;
-}
-#header .name {
-  margin-top: 10px;
-  font-size: 20px;
-}
-#footer { text-align:center; }
+/** 导航栏 样式结束 **/
+
 .container { min-height: 375px; }
-a {
+.container a {
     color: #00b7ff;
 }
