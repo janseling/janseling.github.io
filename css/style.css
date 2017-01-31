@@ -25,7 +25,7 @@ html {
 }
 body {
     background-color:rgba(0, 0, 0, 0);
-    font: 14px "Lucida Grande", Monaco, monospace, sans-serif;
+    font: 14px 'Lucida Console', Monaco, monospace, sans-serif;
 
     animation-duration: 0.5s;
     animation-name: fadeIn;
@@ -47,7 +47,7 @@ body {
     margin-right: auto;
     margin-left: auto;
 }
-#header a {
+#header a.navbar-brand {
     color: #353535;
     text-decoration: none;
 }
