@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+  <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小柴の部落格</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/mloading.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/blog/css/style.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <div class="container text-center">
+      <p class="paper-info text-right"><span>发表于: 2017-02-04 02:09</span> <span>标签:测试</span></p>
+      <div class="paper paper-box text-left">
+        <div id="blog-preview"></div>
+        <div id="blog-buffer" style="display:none;position:absolute;top:0;left:0;">
+        </div>
+      </div>
+    </div>
+    <div id="footer"></div>
+    <script src="/js/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="/js/mloader.js"></script>
+    <script src="/js/template.js"></script>
+
+    <!-- MarkDown-Mathjax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        showProcessingMessages: false,
+        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
+        TeX: { equationNumbers: {autoNumber: "AMS"} }
+      });
+    </script>
+    <script type="text/javascript" src="./js/marked.js"></script>
+    <script type="text/javascript" src="./js/mathjax.js"></script>
+    <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" onload="Preview.Init();"></script>
+    <script>
+      var content = "## 这里是标题\n\r" +
+      "* 下面公式可以随便用\n\r" +
+      " * $J(\\theta)=\\frac{1}{2}\\sum_{i=1}^m(h_\\theta(x_i)-y_i)^2$\n\r\n\r" +
+      "* 然后使用低度下降算法更新\\theta";
+      MLoader.showLoading($('#blog-preview'));
+      setTimeout(function () {
+        Preview.Update(content);
+      }, 3000);
+    </script>
+  </body>
+</html>

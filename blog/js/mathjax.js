@@ -15,13 +15,15 @@ var Preview = {
     buffer: null,      // filled in by Init below
     timeout: null,     // store setTimout id
     mjRunning: false,  // true when MathJax is processing
-    oldText: null,     // used to check if an update is needed
-                       //  Get the preview and buffer DIV's
+
+    //  Get the preview and buffer DIV's
     Init: function () {
         this.preview = document.getElementById("blog-preview");
-        this.buffer = document.getElementById("blog-preview-buffer");
-        this.textarea = document.getElementById("blog-input");
-    }, //
+        this.buffer = document.getElementById("blog-buffer");
+
+        this.callback = MathJax.Callback(["CreatePreview", Preview]);
+        this.callback.autoReset = true;
+    },
     //  Switch the buffer and preview, and display the right one.
     //  (We use visibility:hidden rather than display:none since
     //  the results of running MathJax are more accurate that way.)
@@ -44,7 +46,8 @@ var Preview = {
     //    a pause in the typing).
     //  The callback function is set up below, after the Preview object is set up.
     // 
-    Update: function () {
+    Update: function (text) {
+        this.buffer.innerHTML = this.Escape(text);;
         if (this.timeout) {clearTimeout(this.timeout)}
         this.timeout = setTimeout(this.callback,this.delay);
     },
@@ -58,10 +61,6 @@ var Preview = {
     CreatePreview: function () {
         Preview.timeout = null;
         if (this.mjRunning) return;
-        var text = this.textarea.value;
-        if (text === this.oldtext) return;
-        text = this.Escape(text);
-        this.buffer.innerHTML = this.oldtext = text;
         this.mjRunning = true;
         MathJax.Hub.Queue(
             ["Typeset", MathJax.Hub, this.buffer],
@@ -95,5 +94,3 @@ var Preview = {
 //
 //  Cache a callback to the CreatePreview action
 //
-Preview.callback = MathJax.Callback(["CreatePreview", Preview]);
-Preview.callback.autoReset = true;
