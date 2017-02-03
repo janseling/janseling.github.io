@@ -47,7 +47,7 @@ var Preview = {
     //  The callback function is set up below, after the Preview object is set up.
     // 
     Update: function (text) {
-        this.buffer.innerHTML = this.Escape(text);;
+        this.buffer.innerHTML = this.Escape(text);
         if (this.timeout) {clearTimeout(this.timeout)}
         this.timeout = setTimeout(this.callback,this.delay);
     },

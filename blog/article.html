@@ -38,12 +38,12 @@
     </script>
     <script type="text/javascript" src="./js/marked.js"></script>
     <script type="text/javascript" src="./js/mathjax.js"></script>
-    <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" onload="Preview.Init();"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" onload="Preview.Init();"></script>
     <script>
       var content = "## 这里是标题\n\r" +
-      "* 下面公式可以随便用\n\r" +
-      " * $J(\\theta)=\\frac{1}{2}\\sum_{i=1}^m(h_\\theta(x_i)-y_i)^2$\n\r\n\r" +
-      "* 然后使用低度下降算法更新\\theta";
+      "# 下面公式可以随便用\n\r" +
+      " * $J(\\theta)=\\frac{1}{2}\\sum_{i=1}^m(h_\\theta(x_i)-y_i)^2$\n\r" +
+      "# 然后使用低度下降算法更新$\\theta$";
       MLoader.showLoading($('#blog-preview'));
       setTimeout(function () {
         Preview.Update(content);
