@@ -69,7 +69,11 @@
     <script src="js/init.js"></script>
     <script>
     function queryBlogs () {
+      var category = getQueryParam('category');
       var query = new AV.Query('Blog');
+      if (category) {
+        query.equalTo('category', category);
+      }
       query.descending('createdAt');
       query.find().then(function (blogs) {
         displayBlogs(blogs);
