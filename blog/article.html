@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
-  <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>小柴の部落格</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
@@ -14,7 +13,7 @@
   <body>
     <div id="header"></div>
     <div class="container text-center">
-      <p class="paper-info text-right"><span>发表于: 2017-02-04 02:09</span> <span>标签:测试</span></p>
+      <p class="paper-info text-right"><span id="time"></span> <span id="category"></span></p>
       <div class="paper paper-box text-left">
         <div id="blog-preview"></div>
         <div id="blog-buffer" style="display:none;position:absolute;top:0;left:0;">
@@ -39,15 +38,34 @@
     <script type="text/javascript" src="./js/marked.js"></script>
     <script type="text/javascript" src="./js/mathjax.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" onload="Preview.Init();"></script>
+    <!-- LeanCloud SDK -->
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <!-- 初始化LeanCloud -->
+    <script src="js/init.js"></script>
     <script>
-      var content = "## 这里是标题\n\r" +
-      "* 下面公式可以随便用\n\r" +
-      " * $J(\\theta)=\\frac{1}{2}\\sum_{i=1}^m(h_\\theta(x_i)-y_i)^2$\n\r" +
-      "* 然后使用低度下降算法更新$\\theta$";
       MLoader.showLoading($('#blog-preview'));
-      setTimeout(function () {
+      function display404 () {
+        var content = "# 404\n\r" +
+          "### 你所访问的文章不存在\n\r" +
+          "你可以返回 [所有文章]("+location.origin+"/blog) 继续浏览\n\r";
         Preview.Update(content);
-      }, 3000);
+      }
+      setTimeout(function () {
+        var id = getQueryParam('id');
+        var content = '';
+        if (id) {
+          var query = new AV.Query('Blog');
+          query.get(id).then(function (blog) {
+            Preview.Update(blog.get('content'));
+            $('#time').html("发表于:"+blog.createdAt.formatDate("yyyy-MM-dd hh:ii")+" ");
+            $('#category').html('分类:<a href="/blog">'+blog.get('category')+'</a>');
+          }, function () {
+            display404();
+          });
+          return;
+        }
+        display404();
+      }, 1000);
     </script>
   </body>
 </html>
