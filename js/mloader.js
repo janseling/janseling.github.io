@@ -13,6 +13,14 @@ MLoader.showLoading = function (container) {
     container.html("<div class='loading'><span class='L'></span><span class='O'></span><span class='A'></span><span class='D'></span><span class='I'></span><span class='N'></span><span class='G'></span></div>");
 };
 
+// 去除loading图标
+MLoader.hideLoading = function (container) {
+    if (container.hasClass('loading-wrap')) {
+        container.removeClass('loading-wrap');
+    }
+    container.html("");
+}
+
 var test = [1,2];
 
 // 向容器加载内容
