@@ -50,7 +50,7 @@
       queryBlogTagsByType(1).then(function (cates) {
         cates.forEach(function (cate) {
           var category = getQueryParam('category');
-          $('.cate-list').append('<li class="'+(cate.get('tagName') == category ? 'active' : '')+'"><div><a class="clearfix" href="/blog?category='+cate.get('tagName')+'">'+cate.get('tagName')+'<i></i></a></div></li>');
+          $('.cate-list').append('<li class="'+(cate.get('tagName') == category ? 'active' : '')+'"><div><a class="clearfix" href="/blog?category='+cate.get('tagName')+'">'+cate.get('tagName')+' ('+cate.get('totalBlog')+')<i></i></a></div></li>');
         });
       });
     } 
@@ -62,6 +62,7 @@
 
     function queryBlogTagsByType (type) {
       var query = new AV.Query('BlogTag');
+      query.greaterThan('totalBlog', 0);
       query.equalTo('tagType', type);
       return query.find();
     }
