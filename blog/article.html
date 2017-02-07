@@ -57,7 +57,7 @@
           var query = new AV.Query('Blog');
           query.get(id).then(function (blog) {
             Preview.Update(blog.get('content'));
-            $('#time').html("发表于:"+blog.createdAt.formatDate("yyyy-MM-dd hh:ii")+" ");
+            $('#time').html("发表于:"+blog.get('publishedAt').formatDate("yyyy-MM-dd hh:ii")+" ");
             $('#category').html('分类:<a href="/blog?category='+blog.get('category')+'">'+blog.get('category')+'</a>');
           }, function () {
             display404();
