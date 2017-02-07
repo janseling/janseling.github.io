@@ -74,6 +74,7 @@
       if (category) {
         query.equalTo('category', category);
       }
+      query.equalTo('status', 1);
       query.descending('createdAt');
       query.find().then(function (blogs) {
         displayBlogs(blogs);
