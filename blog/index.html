@@ -18,7 +18,9 @@
     <div class="container text-center">
       <div class="col-md-2">
         <label style="font-size:16px;">文章分类</label>
-        <ul class="cate-list list-unstyled"></ul>
+        <ul class="cate-list list-unstyled">
+          <li><div><a class="clearfix" href="/blog">全部分类<i></i></a></div></li>
+        </ul>
       </div>
       <div class="blog-list col-md-10"></div>
     </div>
@@ -50,6 +52,9 @@
       queryBlogTagsByType(1).then(function (cates) {
         cates.forEach(function (cate) {
           var category = getQueryParam('category');
+          if (!category) {
+            $('.cate-list li:first-child').addClass('active');
+          }
           $('.cate-list').append('<li class="'+(cate.get('tagName') == category ? 'active' : '')+'"><div><a class="clearfix" href="/blog?category='+cate.get('tagName')+'">'+cate.get('tagName')+' ('+cate.get('totalBlog')+')<i></i></a></div></li>');
         });
       });
@@ -71,7 +76,7 @@
       MLoader.hideLoading($('.blog-list'));
       blogs.forEach(function (blog) {
         var item = '<a class="text-center" href="./article.html?id='+blog.id+'">';
-          item += '<div class="wrap col-lg-2 col-md-3 col-xs-4">';
+          item += '<div class="wrap col-lg-3 col-md-3 col-xs-4">';
             item += '<div class="item">';
               item += '<div><img src="'+(blog.get('pic') || '/img/avatar.png')+'"/></div>';
               item += '<p>'+blog.get('title')+'</p>';
