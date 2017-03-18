@@ -32,6 +32,9 @@
     <!-- 初始化LeanCloud -->
     <script src="js/init.js"></script>
     <script>
+    if (AV.User.current()) {
+      window.location.href = 'editor.html';
+    }
     var pwd = $("input#password");
     var btn = $("button#go");
     pwd.on('keyup', updateGo);
