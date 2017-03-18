@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+  <head> <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小柴の部落格</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/mloading.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/blog/css/style.css">
+    <link rel="stylesheet" href="/blog/css/login.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <div class="container text-center">
+      <div>
+        <input id="password" type="password" name="password" class="form-control text-center" placeholder="来开启你的伟大航道吧"/>
+        <button id="go" class="btn btn-lg btn-warning" disabled="true">上船</button>
+      </div>
+    </div>
+    <div id="footer"></div>
+    <script src="/js/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="/js/mloader.js"></script>
+    <script src="/js/template.js"></script>
+    <!-- LeanCloud SDK -->
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <!-- 初始化LeanCloud -->
+    <script src="js/init.js"></script>
+    <script>
+    var pwd = $("input#password");
+    var btn = $("button#go");
+    pwd.on('keyup', updateGo);
+    pwd.on('keydown', updateGo);
+    function updateGo () {
+      var opacity = pwd.val().length / 10.0;
+      if (opacity > 1) opacity = 1;
+      btn.css('opacity', opacity);
+      btn.attr('disabled', opacity < 1);
+    }
+    updateGo();
+    </script>
+    <script>
+      btn.click(function () {
+        AV.User.logIn("我不是小柴", pwd.val()).then(function (user) {
+          window.location.href = 'editor.html';
+        }, function (error) {
+          pwd.addClass('oops');
+          setTimeout(function () {
+            pwd.removeClass('oops');
+          }, 750);
+        });
+      });
+    </script>
+  </body>
+</html>
