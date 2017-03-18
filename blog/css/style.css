@@ -15,6 +15,10 @@
   display: inline-block;
 }
 
+.paper img {
+  max-width: 100%;
+}
+
 .paper-box{
   background: #fff;
   border: 1px solid #ccc;
