@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>小柴の博客编辑器</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/blog/css/editor/style.css" type="text/css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>小柴の博客编辑器</h1>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-md-9" style="font-size:16px;height:30px;line-height:30px;">文章列表</label>
+          <a class="btn btn-sm btn-success col-md-3" href="editor.html">＋新文章</a>
+          <ul class="blog-list list-unstyled clearfix" style="margin-top:10px;">
+          </ul>
+          <p id="articles-empty">还没有写过任何文章</p>
+        </div>
+        <div class="blog-edit-wrap col-md-9">
+          <div class="row">
+            <div class="col-md-6">
+              <form id="article-form">
+                <div class="form-group form-inline dropdown" style="margin-bottom:13px;">
+
+                  <label class="col-md-6">
+                    分类
+                    <input id="cate-name" class="form-control" required="required" type="text" placeholder="文章的分类名称" name="category" style="padding-right:35px;" maxLength="10">
+                    <a  id="cate-list" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                    <ul id="cate-list-menu" class="dropdown-menu"  aria-labelledby="cate-list">
+                    </ul>
+                  </label>
+
+                  <label class="col-md-6">
+                      系列
+                      <input id="series-name" class="form-control" type="text" placeholder="文章所属系列名称(可选)" name="series" style="padding-right:35px;" maxLength="15">
+                      <a  id="series-list" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                      <ul id="series-list-menu" class="dropdown-menu"  aria-labelledby="series-list">
+                      </ul>
+                    </label>
+
+                </div>
+                <div class="form-group">
+                  <label class="col-md-7" style="height:30px;line-height:30px;">文章内容正文</label> 
+                  <label class="btn btn-primary btn-sm col-md-2 insert-pic">插图片<input type="file"/></label>
+                  <button class="btn btn-success btn-sm col-md-2" type="submit" style="margin-left:15px;">提交</button>
+                  <textarea id="article-content" class="form-control" onkeyup="refreshPreview()" rows="30" name="content" placeholder="文章内容, 使用 MarkDown 语法和支持 laTex 语法">
+                  </textarea>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <div class="paper paper-box text-left">
+                <div id="blog-preview"></div>
+                <div id="blog-buffer" style="display:none;position:absolute;top:0;left:0;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        showProcessingMessages: false,
+        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
+        TeX: { equationNumbers: {autoNumber: "AMS"} }
+      });
+    </script>
+    <script type="text/javascript" src="/blog/js/marked.js"></script>
+    <script type="text/javascript" src="/blog/js/mathjax.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      Preview.Init();
+      function refreshPreview () {
+        Preview.Update($('textarea[name=content]').val());
+      }
+      refreshPreview();
+    </script>
+    <!-- 存储服务 -->
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <script type="text/javascript" src="/blog/js/init.js"></script>
+    <script type="text/javascript" src="/blog/js/editor.js"></script>
+    <script>
+      function insertInto (editor, content) {
+        if (document.selection) {
+          editor.focus();
+          sel = document.selection.createRange();
+          sel.text = content;
+          sel.select();
+        }
+        //MOZILLA/NETSCAPE support
+        else if (editor.selectionStart || editor.selectionStart == '0') {
+          var startPos    = editor.selectionStart;
+          var endPos        = editor.selectionEnd;
+          // save scrollTop before insert
+          var restoreTop    = editor.scrollTop;
+          editor.value    = editor.value.substring(0, startPos) + content + editor.value.substring(endPos, editor.value.length);
+          if (restoreTop > 0) {
+            // restore previous scrollTop
+            editor.scrollTop = restoreTop;
+          }
+          editor.focus();
+          editor.selectionStart = startPos + content.length;
+          editor.selectionEnd = startPos + content.length;
+        } else {
+          editor.value += content;
+          editor.focus();
+        }
+      }
+
+      $('.insert-pic input[type=file]').change(function () {
+        if (this.files.length > 0) {
+          var file = this.files[0];
+          var name = $(this).val();
+          var avFile = new AV.File(name, file);
+          avFile.save().then(function (obj) {
+            insertInto($('textarea[name=content]')[0], '![]('+obj.url()+'?imageView/2/w/600)');
+            refreshPreview();
+          });
+        }
+      });
+
+      $('.dropdown-menu li').click(function () {
+        $(this).parent().siblings('input').val($(this).html());
+      });
+    </script>
+  </body>
+</html>
