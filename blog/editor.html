@@ -3,15 +3,17 @@
   <head>
     <title>小柴の博客编辑器</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mloading.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/blog/css/editor/style.css" type="text/css">
   </head>
   <body>
+    <div id='header'></div>
     <div class="container">
-      <h1>小柴の博客编辑器</h1>
       <div class="row">
         <div class="col-md-3">
           <label class="col-md-9" style="font-size:16px;height:30px;line-height:30px;">文章列表</label>
-          <a class="btn btn-sm btn-success col-md-3" href="editor.html">＋新文章</a>
+          <a class="btn btn-sm btn-success col-md-3" href="editor.html" style="color:white;">＋新文章</a>
           <ul class="blog-list list-unstyled clearfix" style="margin-top:10px;">
           </ul>
           <p id="articles-empty">还没有写过任何文章</p>
@@ -62,6 +64,8 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <!-- Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="/js/mloader.js"></script>
+    <script src="/js/template.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         showProcessingMessages: false,
