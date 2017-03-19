@@ -8,14 +8,19 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.5.1/csshake.min.css">
     <link rel="stylesheet" href="/css/mloading.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/lab/css/index.css">
   </head>
   <body>
     <div id="header"></div>
     <div class="container text-center">
-      <h1>暂时什么都没有</h1>
-      <p>除了这个「<a href="./yys">阴阳师の柴寮</a>」</p>
+      <!--<h1>暂时什么都没有</h1>-->
+      <!--<p>除了这个「<a href="./yys">阴阳师の柴寮</a>」</p>-->
+      <div id="projects">
+        <img id="yys" width="400" src="./img/ssr.png" />
+      </div>
     </div>
     <div id="footer"></div>
     <script src="/js/jquery.min.js"></script>
@@ -23,5 +28,16 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="/js/mloader.js"></script>
     <script src="/js/template.js"></script>
+    <script>
+    $("#yys").hover(function () {
+      $(this).attr('src', './img/ssr-hover.png');
+      $(this).addClass('shake-little');
+    }, function () {
+      $(this).attr('src', './img/ssr.png');
+      $(this).removeClass('shake-little');
+    }).click(function () {
+      window.location.href = "./yys";
+    });
+    </script>
   </body>
 </html>
