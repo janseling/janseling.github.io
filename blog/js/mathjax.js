@@ -79,6 +79,7 @@ var Preview = {
         // replace occurrences of &gt; at the beginning of a new line
         // with > again, so Markdown blockquotes are handled correctly
         text = text.replace(/&gt;/g, '>');
+        text = text.replace(/&lt;/g, '<');
         this.buffer.innerHTML = marked(text);
         this.SwapBuffers();
     },
