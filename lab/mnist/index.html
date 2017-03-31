@@ -30,6 +30,9 @@
     <script src="/js/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->  
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <!-- LeanCloud SDK -->
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
+    <script src="./js/init.js"></script>
     <script src="/js/mloader.js"></script>
     <script src="/js/template.js"></script>
     <script>
@@ -59,9 +62,11 @@
       });
 
       $('#submit').click(function () {
-        console.log(canvas.toDataURL("image/png").replace('data:image/png;base64,', ''));
+        var data = canvas.toDataURL("image/png").replace('data:image/png;base64,', '');
         // 发送到 LeanCloud 应用识别并显示结果
-        $('#result').val('数字 9, 准确率:99.6%');
+        AV.Cloud.run('predict', {predict_type:'mnist-mlp', data:data}, function (result) {
+          $('#result').val('数字 '+((parseInt(result.result.predict) + 1) % 10)+', 准确率:'+(parseFloat(result.result.accuracy) * 100)+"%");
+        });
       });
     </script>
   </body>
