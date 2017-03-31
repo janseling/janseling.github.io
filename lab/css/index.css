@@ -3,18 +3,25 @@
   overflow-y: hidden;
   width: 100%;
   height: 100%;
-}
+} 
+#projects { position:relative; }
 
-#projects {
-  position:relative;
-}
+#projects * { cursor:pointer; }
 
-#projects img {
-  position: absolute;
-}
+#projects img { position: absolute; }
 
+/*yys*/
 #yys {
   top:0;
   left:0;
-  cursor:pointer;
+}
+
+/*mnist*/
+#mnist .number {
+  top:70px;
+  left: 500px;
+}
+#mnist .pen {
+  top:0;
+  left: 550px;
 }

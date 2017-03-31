@@ -19,7 +19,11 @@
       <!--<h1>暂时什么都没有</h1>-->
       <!--<p>除了这个「<a href="./yys">阴阳师の柴寮</a>」</p>-->
       <div id="projects">
-        <img id="yys" width="400" src="./img/ssr.png" />
+        <img id="yys" class="link shake hover" width="400" src="./img/ssr.png" data-link="./yys" data-hover="./img/ssr-hover.png" />
+        <div id="mnist" class="link" data-link="./mnist">
+          <img class="number" width="100" src="./img/1-9.png" />
+          <img class="pen shake hover" width="150" src="./img/hand-pen.png" data-hover="./img/hand-pen-hover.png" />
+        </div>
       </div>
     </div>
     <div id="footer"></div>
@@ -29,14 +33,18 @@
     <script src="/js/mloader.js"></script>
     <script src="/js/template.js"></script>
     <script>
-    $("#yys").hover(function () {
-      $(this).attr('src', './img/ssr-hover.png');
+    $('.hover').hover(function () {
+      $(this).attr('src', $(this).data('hover'));
+    }, function () {
+      $(this).attr('src', $(this).data('hover').replace('-hover', ''));
+    });
+    $('shake').hover(function () {
       $(this).addClass('shake-little');
     }, function () {
-      $(this).attr('src', './img/ssr.png');
       $(this).removeClass('shake-little');
-    }).click(function () {
-      window.location.href = "./yys";
+    });
+    $('.link').click(function () {
+      window.location.href = $(this).data('link');
     });
     </script>
   </body>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+  <head> <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小柴の手写板</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.5.1/csshake.min.css">
+    <link rel="stylesheet" href="/css/mloading.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <div class="container text-center">
+      <h2>手写数字识别</h2>
+      <div style="display:inline-block;cursor:crosshair;position:relative;">
+      <canvas id="write-board" width="420" height="420">你的浏览器不支持Canvas，请使用 Chrome/Safari 最新版浏览器</canvas>
+      <button id="redraw" class="btn btn-primary" style="position:absolute;top:440px;left:10px;">重画</button>
+      <button id="submit" class="btn btn-success" style="position:absolute;top:440px;right:10px;">识别</button>
+      <input id="result" class="form-control text-center" style="position:absolute;top:440px;left:100px;right:100px;width:220px;" disabled="disabled" />
+      </div>
+      <div style="margin-top:80px;">
+        <p>请在上面的黑色画板上画写一个数字(0-9)，点击识别按钮来识别你所画写的数字</p>
+      </div>
+    </div>
+    <div id="footer"></div>
+    <script src="/js/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->  
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="/js/mloader.js"></script>
+    <script src="/js/template.js"></script>
+    <script>
+      function drawPath (event) {
+        context.lineTo(event.layerX,event.layerY);
+        context.stroke();
+      }
+
+      var canvas = document.getElementById('write-board');
+      var context = canvas.getContext("2d");
+      context.lineWidth = 25;
+      context.fillStyle = "#000000";
+      context.fillRect(0,0,420,420);
+      context.strokeStyle = "#ffffff";
+      canvas.addEventListener('mousedown', function (event) {
+        context.beginPath();
+        context.moveTo(event.layerX, event.layerY);
+        canvas.addEventListener("mousemove", drawPath, false);
+      }, false);
+      canvas.addEventListener('mouseup', function (event) {
+        canvas.removeEventListener("mousemove", drawPath, false);    
+      } ,false);
+
+      $('#redraw').click(function () {
+        context.fillRect(0,0,420,420);
+        $('#result').val('');
+      });
+
+      $('#submit').click(function () {
+        console.log(canvas.toDataURL("image/png").replace('data:image/png;base64,', ''));
+        // 发送到 LeanCloud 应用识别并显示结果
+        $('#result').val('数字 9, 准确率:99.6%');
+      });
+    </script>
+  </body>
+</html>
+
