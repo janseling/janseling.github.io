@@ -65,7 +65,7 @@
         var data = canvas.toDataURL("image/png").replace('data:image/png;base64,', '');
         // 发送到 LeanCloud 应用识别并显示结果
         AV.Cloud.run('predict', {predict_type:'mnist-mlp', data:data}, function (result) {
-          $('#result').val('数字 '+((parseInt(result.result.predict) + 1) % 10)+', 准确率:'+(parseFloat(result.result.accuracy) * 100)+"%");
+          $('#result').val('数字 '+result.result.predict+', 准确率:'+(parseFloat(result.result.accuracy) * 100)+"%");
         });
       });
     </script>
