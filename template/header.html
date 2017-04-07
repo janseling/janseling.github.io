@@ -18,8 +18,16 @@
       </div>  
       <!-- menu section -->  
       <div class="collapse navbar-collapse navbar-ex1-collapse">  
-        <ul class="nav navbar-nav navbar-right">  
-          <li><a href="/blog">Blog</a></li>  
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a id="blog" class="dropdown-toggle" data-toggle="dropdown" href="/blog">Blog <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="active" href="/blog">全部文章</a></li>
+              <!--TODO : 读取数据库的分类信息-->
+              <li><a href="?category=机器学习">机器学习</a></li>
+              <li><a href="?category=JAVA">JAVA</a></li>
+            </ul>
+          </li>  
           <li><a href="/lab">Max Lab</a></li>  
           <li><a href="/media.html">Media</a></li>  
           <li><a href="https://www.zonemore.com/58cb8e8786b6e408c6d42589" target="_blank">ZONE</a></li>
@@ -29,11 +37,21 @@
   </nav>  
   <script>
     if (location.pathname.slice(0, 5) === '/blog') {
-      $('.navbar .navbar-collapse .nav li:nth-child(1)').addClass('active');
+      $('.navbar .navbar-collapse .nav > li:nth-child(1)').addClass('active');
     } else if (location.pathname.slice(0, 4) === '/lab') {
-      $('.navbar .navbar-collapse .nav li:nth-child(2)').addClass('active');
+      $('.navbar .navbar-collapse .nav > li:nth-child(2)').addClass('active');
     } else if (location.pathname.slice(0, 6) === '/media') {
-      $('.navbar .navbar-collapse .nav li:nth-child(3)').addClass('active');
+      $('.navbar .navbar-collapse .nav > li:nth-child(3)').addClass('active');
     }
+
+    var catep = getQueryParam('category') || '全部文章';
+    $('ul.dropdown-menu li').each(function () {
+      var cate = $(this).find('a').html();
+      if (catep == cate) {
+        $(this).addClass('active');
+        return;
+      }
+      $(this).removeClass('active');
+    });
   </script>
 </div>
