@@ -7,8 +7,8 @@ $(function () {
         }
         var timelineItem = '<li>'+
           '<div class="timeline-bg timeline-item">'+
-            '<p class="timeline-time">'+data.time+'</p>'+
-            '<p class="timeline-content">'+data.content+'</p>';
+            '<p class="timeline-time">'+formatTime(data.createdAt, true)+'</p>'+
+            '<p class="timeline-content">'+data.get('content')+'</p>';
         if (data.images) {
             timelineItem += '<div class="timeline-image row">'+
               '<div class="col-md-4 col-xs-4">'+
@@ -33,6 +33,35 @@ $(function () {
         });
     }
 
+    function formatTime (datetime, compare) {
+        if (compare) {
+            var diff = (new Date().getTime() - datetime.getTime()) / 1000;
+            if (diff < 60) {
+                return parseInt(diff) + ' 秒前';
+            }
+            if (diff < 3600) {
+                return parseInt(diff / 60) + ' 分钟前';
+            }
+            if (diff < 86400) {
+                return parseInt(diff / 3600) + ' 小时前';
+            }
+            if (diff < 604800) {
+                return parseInt(diff / 86400) + ' 天前';
+            }
+        }
+        return datetime.getFullYear() + '-' +
+            (datetime.getMonth() < 9 ? '0' : '') + (datetime.getMonth() + 1) + '-' +
+            (datetime.getDate() < 10 ? '0' : '') + datetime.getDate() + ' ' +
+            (datetime.getHours() < 10 ? '0' : '') + datetime.getHours() + ':' +
+            (datetime.getMinutes() < 10 ? '0' : '') + datetime.getMinutes() + ':' +
+            (datetime.getSeconds() < 10 ? '0' : '') + datetime.getSeconds();
+    }
+
+    function countdownCurrent () {
+        $('#time-current').html(formatTime(new Date(), false));
+        setTimeout(countdownCurrent, 1000);
+    }
+
     function createTimeline () {
         var params = {};
         params['content'] = $('#content').val();
@@ -50,8 +79,8 @@ $(function () {
     }
     $('#submit').click(function () {
         createTimeline();
-        //addTimeline({time:'20秒前', content: 'adqwdqw'});
     });
     queryTimelines();
+    countdownCurrent();
 
 });
