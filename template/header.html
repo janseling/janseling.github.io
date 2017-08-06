@@ -26,9 +26,11 @@
               <!--TODO : 读取数据库的分类信息-->
               <li><a href="?category=机器学习">机器学习</a></li>
               <li><a href="?category=JAVA">JAVA</a></li>
+              <li><a href="?category=运维">运维</a></li>
             </ul>
           </li>  
           <li><a href="/lab">Max Lab</a></li>  
+          <li><a href="/timeline">Timeline</a></li>  
           <li><a href="https://www.zonemore.com/58cb8e8786b6e408c6d42589" target="_blank">ZONE</a></li>
         </ul>  
       </div>  
@@ -39,6 +41,8 @@
       $('.navbar .navbar-collapse .nav > li:nth-child(1)').addClass('active');
     } else if (location.pathname.slice(0, 4) === '/lab') {
       $('.navbar .navbar-collapse .nav > li:nth-child(2)').addClass('active');
+    } else if (location.pathname.slice(0, 9) === '/timeline') {
+      $('.navbar .navbar-collapse .nav > li:nth-child(3)').addClass('active');
     }
 
     var catep = getQueryParam('category') || '全部文章';
