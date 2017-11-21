@@ -1,0 +1,40 @@
+<style>
+  #toggle {
+    position: absolute;
+    top: 20px;
+    left 20px;
+  }
+  #debug {
+    position: absolute;
+    top: 50px;
+    left 20px;
+  }
+  #desc {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 12px;
+    color: white;
+    line-height: 20px;
+    display: none;
+  }
+  #desc .line {
+    width: 30px;
+    height: 2px;
+    display: inline-block;
+    margin: 3px 5px 3px;
+  }
+  #desc .velocity .line { background: skyblue; }
+  #desc .acceleration .line { background: yellow; }
+</style>
+<body style="background:black;">
+  <button id="toggle">运行:开</button>
+  <button id="debug">辅助:关</button>
+  <div id="desc">
+    <div class="velocity"><div class="line"></div>速度</div>
+    <div class="acceleration"><div class="line"></div>加速度</div>
+  </div>
+  <canvas id="space" height="880" width="1494" style="background:#1a0920;">This is the space in my world</canvas>
+
+  <script src="js/index.js"></script>
+</body>

@@ -25,3 +25,9 @@
   top:0;
   left: 550px;
 }
+
+#physics-gravity {
+  position: absolute;
+  top: 10px;
+  left: 780px;
+}
