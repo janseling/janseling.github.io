@@ -19,6 +19,7 @@ $(function () {
               '</div>'+
             '</div>';
         }
+        timelineItem += '<div class="tools"><label class="like-count"></label><i class="btn-like" onclick="clickLike(this)"></i></div>';
         timelineItem += '</div></li>';
         timelineList.append(timelineItem);
     }
@@ -84,3 +85,29 @@ $(function () {
     countdownCurrent();
 
 });
+
+function clickLike (btn) {
+    var $this = $(btn),
+        like = $this.clone();
+    $this.parent().append(like);
+    like.data('rand-times', (Math.random() * 10) + 20);
+    like.data('rand-limit', (Math.random() * 30) + 5);
+    like.data('rand-sin', Math.random());
+    like.addClass('hart-' + parseInt(Math.random() * 8));
+    like.animate({
+        top: '-300px',
+        opacity: 0,
+    }, {
+        duration: 3000,
+        step: function (now, tween) {
+            if (tween.prop == 'top') {
+                var e = $(tween.elem);
+                tween.elem.style.right = parseInt(Math.sin(now / e.data('rand-times') * (e.data('rand-sin') > 0.5 ? -1 : 1)) * e.data('rand-limit') + 4) + 'px';
+            }
+        },
+        complete: function () {
+            like.remove();
+        },
+    });
+}
+

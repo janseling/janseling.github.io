@@ -1,7 +1,6 @@
 .row {
   margin: 0;
-}
-.timeline-bg {
+} .timeline-bg {
   background:rgba(226, 226, 226, .5);
 }
 
@@ -34,7 +33,7 @@
 }
 
 #timeline-list li {
-  padding: 10px 0; 
+  padding-top: 10px; 
   position: relative;
 }
 
@@ -53,7 +52,7 @@
 }
 
 .timeline-item::before {
-  top:25px;
+  top:20px;
   left:-6px;
   border: 6px solid darkgray;
   border-radius: 6px;
@@ -83,6 +82,88 @@
 .timeline-image {
   margin-left:-4px;
   margin-right:-4px;
+}
+
+.timeline-item .tools {
+  position: relative;
+  height: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.timeline-item .tools .like-count {
+  right: 28px;
+  line-height: 28px;
+  position: absolute;
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+}
+
+.timeline-item .tools .btn-like::before, .timeline-item .tools .btn-like::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  display: block;
+  position: absolute;
+}
+
+.timeline-item .tools .btn-like::before {
+  top: 0;
+  left: -6px;
+  background: #fa9;
+  border-radius: 12px;
+}
+.timeline-item .tools .btn-like::after {
+  top: -6px;
+  right: 0;
+  background: #fa9;
+  border-radius: 12px;
+}
+
+.timeline-item .tools .btn-like {
+  right: 8px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  display: block;
+  background: #fa9;
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+/*红*/
+.timeline-item .tools .hart-1.btn-like::before, .timeline-item .tools .hart-1.btn-like::after, .timeline-item .tools .hart-1.btn-like {
+  background: #ff6e97;
+}
+
+/*橙*/
+.timeline-item .tools .hart-3.btn-like::before, .timeline-item .tools .hart-3.btn-like::after, .timeline-item .tools .hart-3.btn-like {
+  background: #ffb86c;
+}
+
+/*黄*/
+.timeline-item .tools .hart-2.btn-like::before, .timeline-item .tools .hart-2.btn-like::after, .timeline-item .tools .hart-2.btn-like {
+  background: #fffc66;
+}
+
+/*绿*/
+.timeline-item .tools .hart-4.btn-like::before, .timeline-item .tools .hart-4.btn-like::after, .timeline-item .tools .hart-4.btn-like {
+  background: #61ff69;
+}
+
+/*青*/
+.timeline-item .tools .hart-5.btn-like::before, .timeline-item .tools .hart-5.btn-like::after, .timeline-item .tools .hart-5.btn-like {
+  background: #83fcd8;
+}
+
+/*蓝*/
+.timeline-item .tools .hart-6.btn-like::before, .timeline-item .tools .hart-6.btn-like::after, .timeline-item .tools .hart-6.btn-like {
+  background: #57d2f7;
+}
+
+/*紫*/
+.timeline-item .tools .hart-7.btn-like::before, .timeline-item .tools .hart-7.btn-like::after, .timeline-item .tools .hart-7.btn-like {
+  background: #c7b3e5;
 }
 
 .timeline-image > div {
