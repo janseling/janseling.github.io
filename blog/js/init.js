@@ -2,15 +2,6 @@ var AppId = "MUdujkd58vwtlTNBcaAt3mc7-gzGzoHsz";
 var AppKey = 'VgnqsUTW3vBJi8TiPirIdhht';
 AV.init({appId: AppId,appKey: AppKey});
 
-function getQueryParam(name) {
-    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-    var r = decodeURI(window.location.search).substr(1).match(reg);
-    if (r != null) {
-        return unescape(r[2]);
-    }
-    return null;
-}
-
 Date.prototype.formatDate = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份 
