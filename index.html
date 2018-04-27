@@ -51,6 +51,20 @@
       <label id="chai2">匕</label>
       <label id="chai3">十</label>
       <label id="chai4">八</label>
+      <audio id="98k-1" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-2" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-3" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-4" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-5" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-6" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-7" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-8" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-9" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-10" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-11" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-12" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-13" src="/res/Kar98K.mp3" autostart="false" />
+      <audio id="98k-14" src="/res/Kar98K.mp3" autostart="false" />
     </div>
 
     <script src="/js/jquery.min.js"></script>
@@ -61,20 +75,22 @@
     <script src="/js/template.js"></script>
     <script>
     $(function () {
-      var ids = ['wo1', 'wo2', 'tm1', 'tm2', 'bu1', 'bu2', 'shi1', 'shi2', 'xiao1', 'xiao2', 'chai1', 'chai2', 'chai3', 'chai4'];
-      ids.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
-      var delay = 0;
-      $(ids).each(function (index, elm) {
-        setTimeout(function () {
-          show(elm);
-        }, delay);
-        delay += random(150, 400);
-      });
-      // 隐藏
       setTimeout(function () {
-        $('#op').fadeOut(1500);
-        $('#contact-me').fadeIn(2500);
-      }, delay + random(300, 700));
+        var ids = ['wo1', 'wo2', 'tm1', 'tm2', 'bu1', 'bu2', 'shi1', 'shi2', 'xiao1', 'xiao2', 'chai1', 'chai2', 'chai3', 'chai4'];
+        ids.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
+        var delay = 0;
+        $(ids).each(function (index, elm) {
+          setTimeout(function () {
+            show(elm, index + 1);
+          }, delay);
+          delay += random(150, 400);
+        });
+        // 隐藏
+        setTimeout(function () {
+          $('#op').fadeOut(1500);
+          $('#contact-me').fadeIn(2500);
+        }, delay + random(300, 700));
+      }, 500);
 
       // 微信二维码
       $('#wechat').popover({
@@ -105,9 +121,11 @@
         }, times * delay);
       }
 
-      function show (elm) {
+      function show (elm, index) {
         $('#' + elm).show();
         $('#op').css('background', '#fff');
+        $('#98k-' + index)[0].volume = 0.2;
+        $('#98k-' + index)[0].play();
         setTimeout(function () {
           $('#op').css('background', '#000');
         }, 10);
