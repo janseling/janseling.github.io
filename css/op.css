@@ -5,6 +5,7 @@
   top:50%;
   left:0;
   right:0;
+  display:none;
   position:fixed;
   transform: translateY(-50%);
 }
