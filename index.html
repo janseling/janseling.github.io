@@ -16,11 +16,20 @@
     <div id="header"></div>
     <div class="container text-center">
       <div id="contact-me">
-        <p>我™不是小柴</p>
-        <p>
-          <a id="github" class="btn btn-default" href="https://github.com/janseling">Gaanwaigin Max</a>
-          <a id="wechat" class="btn btn-default">我™不是小柴</a>
-          <a id="weibo" class="btn btn-default" href="https://weibo.com/janseling">其实我不是小柴 </a>
+        <p class="me">我™不是小柴</p>
+        <p class="contacts">
+          <a id="github" class="btn btn-default" href="https://github.com/janseling" target="_blank">
+            <img src="/img/github.png" width="26" height="26">
+            Gaanwaigin Max
+          </a>
+          <a id="wechat" class="btn btn-default">
+            <img src="/img/wechat.png" width="26" height="26">
+            我™不是小柴
+          </a>
+          <a id="weibo" class="btn btn-default" href="https://weibo.com/janseling" target="_blank">
+            <img src="/img/weibo.png" width="26" height="26">
+            其实我不是小柴 
+          </a>
         </p>
       </div>
     </div>
@@ -54,7 +63,55 @@
     $(function () {
       var ids = ['wo1', 'wo2', 'tm1', 'tm2', 'bu1', 'bu2', 'shi1', 'shi2', 'xiao1', 'xiao2', 'chai1', 'chai2', 'chai3', 'chai4'];
       ids.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
-      console.log(ids);
+      var delay = 0;
+      $(ids).each(function (index, elm) {
+        setTimeout(function () {
+          show(elm);
+        }, delay);
+        delay += random(150, 400);
+      });
+      // 隐藏
+      setTimeout(function () {
+        $('#op').fadeOut(2000);
+      }, delay + random(300, 700));
+
+      // 微信二维码
+      $('#wechat').popover({
+        html: true,
+        placement: 'top',
+        content: '<img src="/img/wechat_qrcode.jpeg" width="200" height="200">',
+      });
+      $('#wechat').mouseover(function () {
+        $(this).popover('show');
+      }).mouseout(function () {
+        $(this).popover('hide');
+      });
+
+
+      function random (min, max) {
+        return parseFloat(min) + (Math.random() * parseFloat(max - min));
+      }
+
+      function shake (elm, duration, times) {
+        var delay = duration / times;
+        for (var i = 0; i < times; i++) {
+          setTimeout(function () {
+            $(elm).css('transform', 'translate('+random(-10, 10)+'px, '+random(-10, 10)+'px) rotate('+random(-0.5, 0.5)+'deg)');
+          }, i * delay);
+        }
+        setTimeout(function () {
+          $(elm).css('transform', 'translate(0)');
+        }, times * delay);
+      }
+
+      function show (elm) {
+        $('#' + elm).show();
+        $('#op').css('background', '#fff');
+        setTimeout(function () {
+          $('#op').css('background', '#000');
+        }, 10);
+        shake('body', 50, 6);
+      }
     });
     </script>
   </body>

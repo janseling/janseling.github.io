@@ -22,8 +22,10 @@ a   0% {opacity: 0;}
 html {
   background-image: url('../img/bg.jpg');
   background-repeat: repeat;
+  height: 100%;
 }
 body {
+    height: 100%;
     background-color:rgba(0, 0, 0, 0);
     font: 14px 'Lucida Console', Monaco, monospace, sans-serif;
 
