@@ -28,6 +28,7 @@
     </div>
     <div id="footer"></div>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/axios.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->  
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <!-- LeanCloud SDK -->
@@ -64,10 +65,14 @@
 
       $('#submit').click(function () {
         var data = canvas.toDataURL("image/png").replace('data:image/png;base64,', '');
-        // 发送到 LeanCloud 应用识别并显示结果
-        AV.Cloud.run('predict', {predict_type:'mnist-mlp', data:data}).then(function (json) {
-          $('#result').val('数字 '+json.result.predict+', 准确率:'+(parseFloat(json.result.accuracy) * 100)+"%");
-        });
+        // 发送到后端识别结果
+        axios.post('http://api.im-max.com/mnist-cnn/predict', {img: data})
+          .then(function (res) {
+            var prediction = res.data.prediction
+            var max = Math.max(...prediction)
+            var num = prediction.indexOf(max)
+            $('#result').val('数字 '+num+', 准确率:'+(prediction[num] * 100).toFixed(5)+"%");
+          })
       });
     </script>
   </body>
