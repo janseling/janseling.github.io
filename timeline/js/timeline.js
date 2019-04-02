@@ -7,8 +7,8 @@ $(function () {
         }
         var timelineItem = '<li>'+
           '<div class="timeline-bg timeline-item">'+
-            '<p class="timeline-time">'+formatTime(data.createdAt, true)+'</p>'+
-            '<p class="timeline-content">'+data.get('content')+'</p>';
+            '<p class="timeline-time">'+formatTime(new Date(data.createdAt), true)+'</p>'+
+            '<p class="timeline-content">'+data.content+'</p>';
         if (data.images) {
             timelineItem += '<div class="timeline-image row">'+
               '<div class="col-md-4 col-xs-4">'+
@@ -25,13 +25,13 @@ $(function () {
     }
 
     function queryTimelines () {
-        var query = new AV.Query('Timeline');
-        query.descending('createdAt');
-        query.find().then(function (timelines) {
-            for (var i = 0; i < timelines.length; i++) {
-                addTimeline(timelines[i]);
-            };
-        });
+        axios.get("http://api.im-max.com/weapp/timeline/list")
+            .then(res => res.data.data)
+            .then((timelines) => {
+                for (var i = 0; i < timelines.length; i++) {
+                    addTimeline(timelines[i])
+                }
+            })
     }
 
     function formatTime (datetime, compare) {
@@ -67,17 +67,17 @@ $(function () {
         var params = {};
         params['content'] = $('#content').val();
 
-        AV.Cloud.rpc('saveTimeline', params).then(function (timeline) {
-            addTimeline(timeline);
-            $('#content').val('');
-        }, function (error) {
-            alert(error);
-        });
+        //AV.Cloud.rpc('saveTimeline', params).then(function (timeline) {
+            //addTimeline(timeline);
+            //$('#content').val('');
+        //}, function (error) {
+            //alert(error);
+        //});
     }
 
-    if (AV.User.current()) {
-        $('#input-wrap').show();
-    }
+    //if (AV.User.current()) {
+        //$('#input-wrap').show();
+    //}
     $('#submit').click(function () {
         createTimeline();
     });
