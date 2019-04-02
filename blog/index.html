@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/blog/css/style.css">
     <link rel="stylesheet" href="/blog/css/index.css">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-7918492677519159",
+        enable_page_level_ads: true
+      });
+    </script>
   </head>
   <body>
     <div id="header"></div>
@@ -24,23 +30,21 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="/js/mloader.js"></script>
     <script src="/js/template.js"></script>
-    <!-- LeanCloud SDK -->
-    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
-    <!-- 初始化LeanCloud -->
     <script src="/js/common.js"></script>
-    <script src="js/init.js"></script>
+    <script src="/js/axios.min.js"></script>
     <script>
     function queryBlogs () {
-      var category = getQueryParam('category');
-      var query = new AV.Query('Blog');
-      if (category) {
-        query.equalTo('category', category);
-      }
-      query.equalTo('status', 1);
-      query.descending('publishedAt');
-      query.find().then(function (blogs) {
-        displayBlogs(blogs);
-      });
+      axios.request({
+        url: 'http://api.im-max.com/weapp/blog/list',
+        params: {
+          category: getQueryParam('category')
+        }
+      })
+        .then(res => res.data.data)
+        .then(blogs => {
+          console.log(blogs)
+          displayBlogs(blogs)
+        })
     }
 
     function queryAllCategories () {
@@ -53,7 +57,7 @@
           $('.cate-list').append('<li class="'+(cate.get('tagName') == category ? 'active' : '')+'"><div><a class="clearfix" href="/blog?category='+cate.get('tagName')+'">'+cate.get('tagName')+' ('+cate.get('totalBlog')+')<i></i></a></div></li>');
         });
       });
-    } 
+    }
 
     function queryAllSeries () {
       queryBlogTagsByType(2).then(function () {
@@ -61,6 +65,14 @@
     }
 
     function queryBlogTagsByType (type) {
+      /**
+      return axios.request({
+        url: 'http://api.im-max.com/weapp/blog/list',
+        params: {
+          tagType: type
+        }
+      })
+      **/
       var query = new AV.Query('BlogTag');
       query.greaterThan('totalBlog', 0);
       query.equalTo('tagType', type);
@@ -73,8 +85,8 @@
         var item = '<a class="text-center" href="./article.html?id='+blog.id+'">';
           item += '<div class="wrap col-lg-3 col-md-3 col-xs-4">';
             item += '<div class="item">';
-              item += '<div><img src="'+(blog.get('pic') || '/img/avatar.png')+'"/></div>';
-              item += '<p>'+blog.get('title')+'</p>';
+              item += '<div><img src="'+(blog.pic || '/img/avatar.png')+'"/></div>';
+              item += '<p>'+blog.title+'</p>';
             item += '</div>';
           item += '</div>';
         item += '</a>';

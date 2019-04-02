@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="/css/mloading.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/blog/css/style.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-7918492677519159",
+        enable_page_level_ads: true
+      });
+    </script>
   </head>
   <body>
     <div id="header"></div>
@@ -38,11 +45,8 @@
     <script type="text/javascript" src="./js/marked.js"></script>
     <script type="text/javascript" src="./js/mathjax.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" onload="Preview.Init();"></script>
-    <!-- LeanCloud SDK -->
-    <script src="https://cdn1.lncld.net/static/js/av-min-1.5.0.js"></script>
-    <!-- 初始化LeanCloud -->
     <script src="/js/common.js"></script>
-    <script src="js/init.js"></script>
+    <script src="/js/axios.min.js"></script>
     <script>
       MLoader.showLoading($('#blog-preview'));
       function display404 () {
@@ -53,17 +57,18 @@
       }
       setTimeout(function () {
         var id = getQueryParam('id');
-        var content = '';
+        console.log(id)
         if (id) {
-          var query = new AV.Query('Blog');
-          query.get(id).then(function (blog) {
-            Preview.Update(blog.get('content'));
-            $('#time').html("发表于:"+blog.get('publishedAt').formatDate("yyyy-MM-dd hh:ii")+" ");
-            $('#category').html('分类:<a href="/blog?category='+blog.get('category')+'">'+blog.get('category')+'</a>');
-          }, function () {
-            display404();
-          });
-          return;
+          return axios.get('http://api.im-max.com/weapp/blog/detail/' + id)
+            .then(res => {
+              const blog = res.data.data
+              console.log(blog)
+              Preview.Update(blog.content || '');
+              $('#time').html("发表于:"+ new Date(blog.createdAt).formatDate("yyyy-MM-dd hh:ii")+" ");
+              $('#category').html('分类:<a href="/blog?category='+blog.category+'">'+blog.category+'</a>');
+            }).catch(() => {
+              display404();
+            });
         }
         display404();
       }, 1000);
