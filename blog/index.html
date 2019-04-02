@@ -42,10 +42,7 @@
         }
       })
         .then(res => res.data.data)
-        .then(blogs => {
-          console.log(blogs)
-          displayBlogs(blogs)
-        })
+        .then(blogs => displayBlogs(blogs))
     }
 
     function queryAllCategories () {
