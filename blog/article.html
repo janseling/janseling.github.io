@@ -57,18 +57,14 @@
       }
       setTimeout(function () {
         var id = getQueryParam('id');
-        console.log(id)
         if (id) {
           return axios.get('http://api.im-max.com/weapp/blog/detail/' + id)
             .then(res => {
               const blog = res.data.data
-              console.log(blog)
               Preview.Update(blog.content || '');
               $('#time').html("发表于:"+ new Date(blog.createdAt).formatDate("yyyy-MM-dd hh:ii")+" ");
               $('#category').html('分类:<a href="/blog?category='+blog.category+'">'+blog.category+'</a>');
-            }).catch(() => {
-              display404();
-            });
+            }).catch(display404);
         }
         display404();
       }, 1000);
