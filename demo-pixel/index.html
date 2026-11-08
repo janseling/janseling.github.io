@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小柴 Max · PIXEL HOME</title>
+<meta name="description" content="小柴 Max · 全栈工程师 & AI Agent 构建者。像素游戏风个人主页：已上线项目、技能经验条、联系方式。">
+<!-- CO-079 教训：OG 一律绝对 URL（本文件 grep 不到本机地址字样，自检干净） -->
+<meta property="og:title" content="小柴 Max · PIXEL HOME">
+<meta property="og:description" content="全栈工程师 & AI Agent 构建者。已上线：AI 情报日报 / Knockin。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.im-max.com/">
+<meta property="og:image" content="https://www.im-max.com/og-pixel.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/2hAAAAWklEQVR4nKXSMQHAIBDAsHf7D2RZdrcYY2KSiZ6ZjCXSh/oQdqqrC9gZO1swMTCzBDMLM7MrzhYsLCwsLCwsLNosIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiL/AEt9ATfdOZ3wAAAAAElFTkSuQmCC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== MX-001 PIXEL v1.2 · 8bit PICO-8 palette =====
+   纪律（spec §1.3）：像素效果全部 CSS 实现（box-shadow / repeating-gradient，精确到 2px），
+   任何 DPR 都锐利；无位图（og-pixel.png 是分享元数据，不是页面视觉）。 */
+:root{
+  --bg:#0d0821; --fg:#fff8e7; --ai:#7b2cbf; --ok:#00e436; --warn:#ff004d;
+  --f-big:"Press Start 2P","VT323",monospace; /* T5：加载失败回落 VT323 → monospace */
+  --f-crt:"VT323","Noto Sans SC",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--fg);font-family:var(--f-crt);font-size:20px;
+  line-height:1.6;overflow-x:hidden;position:relative;min-height:100vh;
+}
+/* CRT scanlines（2px 横线，精确像素） */
+body::before{
+  content:"";position:fixed;inset:0;z-index:60;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:59;pointer-events:none;
+  background:radial-gradient(ellipse 120% 90% at 50% 35%,transparent 40%,rgba(4,2,12,.55) 100%);
+}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;width:2px;height:2px;background:var(--fg);animation:tw 3s steps(1) infinite}
+.star.s4{width:4px;height:4px;animation-duration:5s}
+@keyframes tw{0%,60%{opacity:.7}30%{opacity:.15}100%{opacity:.7}}
+
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 20px}
+
+/* 像素边框：box-shadow 四段实心（无圆角，阶梯角） */
+.px{position:relative;background:#150a2e;
+  box-shadow:0 -4px 0 0 var(--fg),0 4px 0 0 var(--fg),-4px 0 0 0 var(--fg),4px 0 0 0 var(--fg)}
+
+.bar{display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--f-big);font-size:10px;letter-spacing:.08em;color:var(--ok);
+  padding:18px 4px;text-shadow:0 2px 0 var(--warn)}
+.blink{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* HERO */
+.hero{padding:110px 24px 80px;text-align:center}
+.hero .kicker{font-family:var(--f-big);font-size:11px;color:var(--ok);
+  text-shadow:3px 3px 0 var(--ai);margin-bottom:32px}
+.hero h1{font-family:var(--f-big);font-size:clamp(22px,5.2vw,48px);line-height:1.7;
+  color:var(--fg);text-shadow:4px 4px 0 var(--ai),8px 8px 0 rgba(0,0,0,.5);margin-bottom:28px}
+.hero h1 .hi{color:var(--ok);text-shadow:4px 4px 0 var(--warn)}
+.hero .crt{font-family:var(--f-crt);font-size:26px;color:var(--fg);min-height:36px;letter-spacing:.04em}
+.hero .crt::after{content:"█";color:var(--ok);animation:blink .8s steps(1) infinite;margin-left:6px}
+.start{margin-top:56px;display:inline-block;font-family:var(--f-big);font-size:14px;
+  color:var(--fg);text-decoration:none;padding:18px 30px; /* ≥44px hit */
+  box-shadow:0 -4px 0 0 var(--ok),0 4px 0 0 var(--ok),-4px 0 0 0 var(--ok),4px 0 0 0 var(--ok);
+  animation:breathe 2s ease-in-out infinite}
+.start:hover{background:var(--ok);color:var(--bg);animation:none;
+  box-shadow:0 -4px 0 0 var(--warn),0 4px 0 0 var(--warn),-4px 0 0 0 var(--warn),4px 0 0 0 var(--warn)}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.45}}
+
+.sec{margin:86px 0 34px;display:flex;align-items:center;gap:14px}
+.sec h2{font-family:var(--f-big);font-size:clamp(11px,1.8vw,16px);color:var(--ok);
+  text-shadow:2px 2px 0 var(--ai)}
+.sec .rule{flex:1;height:4px;
+  background:repeating-linear-gradient(90deg,var(--fg) 0 8px,transparent 8px 16px);opacity:.35}
+
+/* RPG 装备卡 */
+.grid{display:grid;gap:24px}
+@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
+.item{background:#150a2e;position:relative;display:block;text-decoration:none;color:inherit;
+  box-shadow:0 -4px 0 0 var(--fg),0 4px 0 0 var(--fg),-4px 0 0 0 var(--fg),4px 0 0 0 var(--fg);
+  padding:22px 22px 20px;transition:transform .12s steps(2)}
+.item:hover{transform:translate(-2px,-2px);
+  box-shadow:0 -4px 0 0 var(--ok),0 4px 0 0 var(--ok),-4px 0 0 0 var(--ok),4px 0 0 0 var(--ok)}
+.item .lv{font-family:var(--f-big);font-size:9px;color:var(--fg);float:right;text-shadow:2px 2px 0 var(--ai)}
+.item h3{font-family:var(--f-big);font-size:clamp(11px,1.9vw,14px);margin-bottom:14px;
+  color:var(--fg);text-shadow:2px 2px 0 var(--warn)}
+.item h3 .tag{font-family:var(--f-crt);font-size:19px;color:var(--ok);margin-left:10px}
+.item h3 .tag::before{content:"LV."}
+.item p{font-family:var(--f-crt);font-size:23px;color:#cfc0f7;margin-bottom:16px}
+.hp{display:flex;gap:3px;margin-bottom:16px}
+.hp span{width:14px;height:14px;background:var(--ok);box-shadow:0 0 0 2px var(--bg),0 0 0 4px #3a1d52}
+.hp span.off{background:#3a1d52}
+.item .url{font-family:var(--f-crt);font-size:20px;color:var(--ok)}
+.item .url::after{content:" »"}
+.item:hover .url{color:var(--warn)}
+
+/* 技能经验条（像素槽） */
+.xp{margin-bottom:22px}
+.xp .l{display:flex;justify-content:space-between;font-family:var(--f-crt);font-size:21px;color:#cfc0f7;margin-bottom:6px}
+.xp .l .v{color:var(--ok)}
+.xp .bar{height:16px;background:#22103e;box-shadow:0 0 0 2px var(--fg)}
+.xp .fill{height:16px;
+  background:repeating-linear-gradient(90deg,var(--ok) 0 8px,var(--bg) 8px 12px);
+  box-shadow:inset 0 0 0 2px var(--bg),inset 0 0 0 4px var(--ok)}
+
+/* CONTACT 像素按钮组（≥44px hit） */
+.contact{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-bottom:8px}
+.cbtn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 20px;
+  font-family:var(--f-crt);font-size:21px;color:var(--fg);text-decoration:none;background:#150a2e;
+  box-shadow:0 -4px 0 0 var(--fg),0 4px 0 0 var(--fg),-4px 0 0 0 var(--fg),4px 0 0 0 var(--fg)}
+.cbtn:hover{box-shadow:0 -4px 0 0 var(--ok),0 4px 0 0 var(--ok),-4px 0 0 0 var(--ok),4px 0 0 0 var(--ok);color:var(--ok)}
+.cbtn .k{font-family:var(--f-big);font-size:9px;color:var(--warn)}
+.cbtn.wx{cursor:default}
+.cbtn.wx:hover{box-shadow:0 -4px 0 0 var(--ai),0 4px 0 0 var(--ai),-4px 0 0 0 var(--ai),4px 0 0 0 var(--ai);color:#cfc0f7}
+.hint{margin-top:18px;text-align:center;font-family:var(--f-crt);font-size:19px;color:#8a7bb0}
+.hint .k{color:var(--ok)}
+
+footer{margin:96px 0 48px;padding:22px 4px;text-align:center;
+  font-family:var(--f-crt);font-size:20px;color:#8a7bb0}
+footer a{color:var(--ok);text-decoration:none}
+footer a:hover{color:var(--warn)}
+
+@media(max-width:520px){
+  body{font-size:18px}
+  .hero{padding:72px 16px 56px}
+  .grid.two{grid-template-columns:1fr}
+  .contact{flex-direction:column;align-items:stretch}
+  /* Press Start 2P 实测字宽 >1em：375px 下 22px 的 "BUILDS THINGS" 会右侧裁切（T2 实测踩过）。
+     降到 17px + 允许断行，320px 窄屏也不溢出 */
+  .hero h1{font-size:17px;overflow-wrap:anywhere;line-height:1.9}
+  .hero .kicker{font-size:9px;overflow-wrap:anywhere}
+  .start{font-size:12px;padding:16px 24px}
+}
+</style>
+</head>
+<body>
+<div id="sky"></div>
+<div class="wrap">
+
+  <div class="bar">
+    <span>MAX.SYS</span>
+    <span class="blink">▶ READY</span>
+  </div>
+
+  <section class="hero">
+    <div class="kicker">▚ PRESS START — 小柴 · Max ▚</div>
+    <h1>小柴 <span class="hi">MAX</span><br>BUILDS THINGS</h1>
+    <div class="crt" id="typer"></div>
+    <a class="start" href="#projects">PRESS START</a>
+  </section>
+
+  <div class="sec"><h2>▸ ITEMS · 已上线</h2></div>
+  <div class="grid two" id="projects">
+    <a class="item" href="https://ainews.im-max.com/" target="_blank" rel="noopener">
+      <span class="lv">LV.05</span>
+      <h3>AI 情报日报 <span class="tag">5</span></h3>
+      <p>每日自动采集全球 AI 资讯。抓取→判读→发布，无人值守。</p>
+      <div class="hp">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span class="off"></span><span class="off"></span>
+      </div>
+      <div class="url">ainews.im-max.com</div>
+    </a>
+    <a class="item" href="https://knockin.work/" target="_blank" rel="noopener">
+      <span class="lv">LV.03</span>
+      <h3>Knockin <span class="tag">3</span></h3>
+      <p>AI 简历优化 + 模拟面试平台。30 秒出评分，按岗位改写。</p>
+      <div class="hp">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span>
+      </div>
+      <div class="url">knockin.work</div>
+    </a>
+  </div>
+
+  <div class="sec"><h2>▸ SKILLS · 经验条</h2></div>
+  <div class="xp"><div class="l"><span>TypeScript</span><span class="v">L9</span></div><div class="bar"><div class="fill" style="width:88%"></div></div></div>
+  <div class="xp"><div class="l"><span>Node.js</span><span class="v">L9</span></div><div class="bar"><div class="fill" style="width:86%"></div></div></div>
+  <div class="xp"><div class="l"><span>Next.js</span><span class="v">L7</span></div><div class="bar"><div class="fill" style="width:70%"></div></div></div>
+  <div class="xp"><div class="l"><span>Python</span><span class="v">L8</span></div><div class="bar"><div class="fill" style="width:80%"></div></div></div>
+  <div class="xp"><div class="l"><span>LLM / Ollama</span><span class="v">L7</span></div><div class="bar"><div class="fill" style="width:72%"></div></div></div>
+  <div class="xp"><div class="l"><span>Docker</span><span class="v">L6</span></div><div class="bar"><div class="fill" style="width:60%"></div></div></div>
+
+  <div class="sec"><h2>▸ CONTACT · 1P 通道</h2></div>
+  <div class="contact" id="contact">
+    <a class="cbtn" href="https://github.com/janseling" target="_blank" rel="noopener"><span class="k">GITHUB</span> janseling</a>
+    <a class="cbtn" href="mailto:janseling@163.com"><span class="k">MAIL</span> janseling@163.com</a>
+    <span class="cbtn wx" title="微信号 MaxJane"><span class="k">WECHAT</span> MaxJane</span>
+  </div>
+  <p class="hint">▶ 微信添加请备注来意 · 邮箱同 GitHub 提交邮箱</p>
+
+  <footer>
+    GITHUB · <a href="https://github.com/janseling" target="_blank" rel="noopener">janseling</a>
+    <br><br>© 2026 小柴 MAX · POWERED BY 8-BIT
+  </footer>
+</div>
+<script>
+// 像素星空：固定伪随机种子（spec §3 #3——坐标写死保证一致感，非每次刷新随机）
+(function(){
+  var sky=document.getElementById("sky");
+  var seed=1337;
+  function rnd(){seed=(seed*1103515245+12345)>>>0;return (seed>>>8)%1000/1000;}
+  for (var i=0;i<72;i++){
+    var s=document.createElement("span");
+    s.className="star "+(i%3===0?"s4":"s2");
+    s.style.left=(rnd()*100).toFixed(2)+"%";
+    s.style.top=(rnd()*100).toFixed(2)+"%";
+    s.style.animationDelay=((i%5)*0.6)+"s";
+    sky.appendChild(s);
+  }
+})();
+// CRT 打字机（真实定位句，三行轮播）
+(function(){
+  var el=document.getElementById("typer");
+  var lines=[
+    "> WEB 全栈工程师",
+    "> AI AGENT 构建者",
+    "> 管线：采集 → 判读 → 发布"
+  ];
+  var li=0,ci=0;
+  function step(){
+    if(li>=lines.length){setTimeout(function(){el.textContent="";li=0;ci=0;step();},2600);return;}
+    var cur=lines[li];
+    if(ci<=cur.length){el.textContent=cur.slice(0,ci);ci++;setTimeout(step,52);}
+    else{setTimeout(function(){li++;ci=0;step();},1100);}
+  }
+  setTimeout(step,700);
+})();
+</script>
+</body>
+</html>
